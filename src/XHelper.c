@@ -30,7 +30,6 @@ InitX ( XErrorHandler newErrorHandler )
 											&firstEvent,
 											&firstError );
 	return display;
-	// InitAlreadyOpenedTiles ( display );
 }
 
 void
