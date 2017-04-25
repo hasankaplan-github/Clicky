@@ -162,6 +162,7 @@ ClickEventHandler ( XEvent *xEvent )
 										xiDeviceEvent->root_y,
 										eventHandlerFilePath );
 	system( dispatcherFullCommand );
+	XChangePointerControl( )
 	free( eventHandlerFilePath );
 	free( dispatcherFullCommand );
 }

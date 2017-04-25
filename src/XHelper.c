@@ -35,6 +35,11 @@ InitX ( XErrorHandler newErrorHandler )
 void
 CloseX ( void )
 {
+	if ( oldHandler != NULL )
+	{
+		XSetErrorHandler( oldHandler );
+	}
+
 	if ( display != NULL )
 	{
 		XCloseDisplay( display );
