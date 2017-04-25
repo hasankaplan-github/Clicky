@@ -7,6 +7,9 @@
 #include <X11/Xutil.h>
 #include <X11/extensions/XInput2.h>
 
+#include <X11/cursorfont.h>
+#include <X11/Xcursor/Xcursor.h>
+
 
 Display *
 InitX ( XErrorHandler newErrorHandler );
@@ -37,5 +40,11 @@ Status
 GetCommand ( 	Window window,
 				char ***args,
 				int *argCount );
+
+void
+ActivateWatchCursor ( Window window );
+
+void
+ActivateLeftPtrCursor ( Window window );
 
 #endif // XHELPER_H_INCLUDED

@@ -11,6 +11,9 @@ Display *display = NULL;
 int majorOpcode, firstEvent, firstError;
 Bool isXI2Supported = False;
 
+Cursor watchCursor = 0;
+Cursor leftPtrCursor = 0;
+
 Display *
 InitX ( XErrorHandler newErrorHandler )
 {
@@ -29,6 +32,8 @@ InitX ( XErrorHandler newErrorHandler )
 	isXI2Supported = XQueryExtension( display, "XInputExtension", &majorOpcode,
 											&firstEvent,
 											&firstError );
+	watchCursor = XCreateFontCursor( display, XC_watch );
+	leftPtrCursor = XCreateFontCursor( display, XC_left_ptr );
 	return display;
 }
 
@@ -118,4 +123,16 @@ GetCommand ( 	Window window,
 	Status status = XGetCommand( display, window, args, argCount );
 
 	return status;
+}
+
+void
+ActivateWatchCursor ( Window window )
+{
+	XDefineCursor( display, window, watchCursor );
+}
+
+void
+ActivateLeftPtrCursor ( Window window )
+{
+	XDefineCursor( display, window, leftPtrCursor );
 }

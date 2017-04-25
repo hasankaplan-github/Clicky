@@ -24,7 +24,7 @@
 #define PREPARE_DISPATCHER_FULL_COMMAND(fullCommand, format, ...)	\
 	int fullCommandSize = snprintf( NULL, 0, format, __VA_ARGS__ );	\
 	fullCommand = malloc( fullCommandSize + 3 );	\
-	sprintf( fullCommand, format " &", __VA_ARGS__ );
+	sprintf( fullCommand, format "", __VA_ARGS__ );
 
 Bool Continue = True;
 
@@ -146,6 +146,7 @@ ClickEventHandler ( XEvent *xEvent )
 	XGenericEventCookie *cookie = &xEvent->xcookie;
 	XIDeviceEvent *xiDeviceEvent = cookie->data;
 	Window window = xiDeviceEvent->event;
+	ActivateWatchCursor( window );
 
 	char *dispatcherFullCommand;
 	char *dispatcherCommand = "sh " DISPATCHER_FILE_PATH;
@@ -162,9 +163,9 @@ ClickEventHandler ( XEvent *xEvent )
 										xiDeviceEvent->root_y,
 										eventHandlerFilePath );
 	system( dispatcherFullCommand );
-	XChangePointerControl( )
 	free( eventHandlerFilePath );
 	free( dispatcherFullCommand );
+	ActivateLeftPtrCursor( window );
 }
 
 void
@@ -214,8 +215,8 @@ main ( void )
 	SubscribeNewWindowEvent( );
 	HandleOpenedWindows( );
 	EventLoop( );
-	CloseX( );
 	printf( "...Exiting Clicky!...\n" );
+	CloseX( );
 
 	return 1;
 }
