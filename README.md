@@ -1,2 +1,2 @@
 # Clicky
-Makes all Conky windows clickable.
+Makes all [Conky](https://github.com/brndnmtthws/conky) windows clickable.
