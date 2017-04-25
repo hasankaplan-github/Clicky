@@ -171,7 +171,7 @@ ClickEventHandler ( XEvent *xEvent )
 void
 ExitSignalsHandler ( int sigNum )
 {
-	// signal handlers should be light as much as possible
+	// needs some change to reflect signals immediately.
 	Continue = False;
 }
 
