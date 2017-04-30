@@ -26,7 +26,7 @@
 	fullCommand = malloc( fullCommandSize + 3 );	\
 	sprintf( fullCommand, format "", __VA_ARGS__ );
 
-Bool Continue = True;
+volatile Bool Continue = True;
 
 int
 XCustomErrorHandler ( 	Display *display,
@@ -171,8 +171,8 @@ ClickEventHandler ( XEvent *xEvent )
 void
 ExitSignalsHandler ( int sigNum )
 {
-	// needs some change to reflect signals immediately.
 	Continue = False;
+	SendDummyEvent( );     // to reflect signals immediately.
 }
 
 void

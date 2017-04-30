@@ -2,10 +2,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-XErrorHandler oldHandler = NULL;
-Window defaultRootWindow = 0;
 Display *display = NULL;
+Window defaultRootWindow = 0;
+XErrorHandler oldHandler = NULL;
+
 //Time previousEventTime = 0;
 
 int majorOpcode, firstEvent, firstError;
@@ -135,4 +137,19 @@ void
 ActivateLeftPtrCursor ( Window window )
 {
 	XDefineCursor( display, window, leftPtrCursor );
+}
+
+void
+SendDummyEvent ( void )
+{
+	// push a dummy event into the queue so that the event loop has a chance to stop
+	XClientMessageEvent dummyEvent;
+	memset( &dummyEvent, 0, sizeof(XClientMessageEvent) );
+	dummyEvent.type = ClientMessage;
+	dummyEvent.window = defaultRootWindow;
+	dummyEvent.format = 32;
+	dummyEvent.display = display;
+	XSendEvent( display, defaultRootWindow, False, SubstructureNotifyMask,
+				(XEvent*) &dummyEvent );
+	XFlush( display );
 }

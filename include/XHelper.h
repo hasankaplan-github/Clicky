@@ -47,4 +47,7 @@ ActivateWatchCursor ( Window window );
 void
 ActivateLeftPtrCursor ( Window window );
 
+void
+SendDummyEvent ( void );
+
 #endif // XHELPER_H_INCLUDED
