@@ -171,8 +171,9 @@ ClickEventHandler ( XEvent *xEvent )
 void
 ExitSignalsHandler ( int sigNum )
 {
+	printf( "...Exiting Clicky!...\n" );
 	Continue = False;
-	SendDummyEvent( );     // to reflect signals immediately.
+	SendDummyEvent( );     // to reflect exit signals immediately.
 }
 
 void
@@ -196,7 +197,7 @@ EventLoop ( void )
 							ClickEventHandler( &xEvent );
 							break;
 					}
-					FreeEventData( &xEvent );
+					FreeEventData( &xEvent );     // free data after "IsXiDeviceEvent( &xEvent )" call
 				}
 				break;
 		}
@@ -215,8 +216,7 @@ main ( void )
 	SubscribeNewWindowEvent( );
 	HandleOpenedWindows( );
 	EventLoop( );
-	printf( "...Exiting Clicky!...\n" );
 	CloseX( );
 
-	return 1;
+	return EXIT_SUCCESS;
 }

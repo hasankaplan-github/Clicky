@@ -24,7 +24,7 @@ InitX ( XErrorHandler newErrorHandler )
 	{
 		//fprintf( stderr, "Clicky: Cannot open display\n" );
 		printf( "Clicky: Cannot open display\n" );
-		exit( 0 );
+		exit( EXIT_FAILURE );
 	}
 	if ( newErrorHandler != NULL )
 	{
@@ -74,7 +74,6 @@ SubscribeClickEvent ( Window window )
 	XISelectEvents( display, window, &xiEventMask, 1 );
 	// XSync( display, True );
 	//free( xiEventMask.mask );
-
 }
 
 void
