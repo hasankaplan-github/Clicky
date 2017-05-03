@@ -98,8 +98,7 @@ PrepareEventHandlerFilePath ( Window window )
 	{
 		for ( int i = 1; i < argCount; ++i )
 		{
-			int found = strcmp( args[ i ], "-c" );
-			if ( found == 0 )     // "-c" style arg was found process it
+			if ( strcmp( args[ i ], "-c" ) == 0 )     // "-c" style arg was found process it
 			{
 				int len = strlen( args[ i + 1 ] ) + strlen( EVENT_HANDLER_FILE_EXTENSION )
 						+ 1;     // +1 for null termination
@@ -112,22 +111,18 @@ PrepareEventHandlerFilePath ( Window window )
 				}
 				break;
 			}
-			else     // search for "--config" style arg
+			else if ( strncmp( args[ i ], "--config=", 9 ) == 0 )     // "--config" style arg was found process it
 			{
-				found = strncmp( args[ i ], "--config=", 9 );
-				if ( found == 0 )     // "--config" style arg was found process it
+				int len = strlen( args[ i ] ) - 9     // -9 for "--config="
+				+ strlen( EVENT_HANDLER_FILE_EXTENSION ) + 1;     // +1 for null termination
+				eventHandlerFilePath = malloc( len );
+				if ( eventHandlerFilePath != NULL )
 				{
-					int len = strlen( args[ i ] ) - 9     // -9 for "--config="
-					+ strlen( EVENT_HANDLER_FILE_EXTENSION ) + 1;     // +1 for null termination
-					eventHandlerFilePath = malloc( len );
-					if ( eventHandlerFilePath != NULL )
-					{
-						eventHandlerFilePath[ 0 ] = '\0';
-						strcpy( eventHandlerFilePath, args[ i ] + 9 );
-						strcat( eventHandlerFilePath, EVENT_HANDLER_FILE_EXTENSION );
-					}
-					break;
+					eventHandlerFilePath[ 0 ] = '\0';
+					strcpy( eventHandlerFilePath, args[ i ] + 9 );
+					strcat( eventHandlerFilePath, EVENT_HANDLER_FILE_EXTENSION );
 				}
+				break;
 			}
 		}
 		XFreeStringList( args );
