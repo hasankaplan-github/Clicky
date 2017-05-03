@@ -6,7 +6,8 @@
  */
 
 
-#include <SignalHelper.h>
+#include "SignalHelper.h"
+
 #include <signal.h>
 #include <stddef.h>	// for NULL definition
 
