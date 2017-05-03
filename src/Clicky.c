@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "XHelper.h"
 #include "SignalHelper.h"
@@ -163,6 +164,7 @@ ClickEventHandler ( XEvent *xEvent )
 										xiDeviceEvent->root_y,
 										eventHandlerFilePath );
 	system( dispatcherFullCommand );
+	//execl( "/bin/sh", "/bin/sh", dispatcherFullCommand, NULL );
 	free( eventHandlerFilePath );
 	free( dispatcherFullCommand );
 	ActivateLeftPtrCursor( window );
