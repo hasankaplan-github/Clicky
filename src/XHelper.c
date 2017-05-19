@@ -8,15 +8,13 @@ Display *display = NULL;
 Window defaultRootWindow = 0;
 XErrorHandler oldHandler = NULL;
 
-//Time previousEventTime = 0;
-
 int majorOpcode, firstEvent, firstError;
 Bool isXI2Supported = False;
 
 Cursor watchCursor = 0;
 Cursor leftPtrCursor = 0;
 
-Display *
+void
 InitX ( XErrorHandler newErrorHandler )
 {
 	display = XOpenDisplay( NULL );
@@ -36,7 +34,6 @@ InitX ( XErrorHandler newErrorHandler )
 											&firstError );
 	watchCursor = XCreateFontCursor( display, XC_watch );
 	leftPtrCursor = XCreateFontCursor( display, XC_left_ptr );
-	return display;
 }
 
 void
@@ -118,10 +115,10 @@ FreeEventData ( XEvent *xEvent )
 
 Status
 GetCommand ( 	Window window,
-				char ***args,
-				int *argCount )
+				char ***args_out,
+				int *argCount_out )
 {
-	Status status = XGetCommand( display, window, args, argCount );
+	Status status = XGetCommand( display, window, args_out, argCount_out );
 
 	return status;
 }

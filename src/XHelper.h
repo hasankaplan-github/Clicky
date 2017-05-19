@@ -11,7 +11,7 @@
 #include <X11/Xcursor/Xcursor.h>
 
 
-Display *
+void
 InitX ( XErrorHandler newErrorHandler );
 
 void
